@@ -1,3 +1,4 @@
+// https://leetcode-cn.com/problems/generate-parentheses/solution/jian-dan-gao-xiao-si-lu-tian-kong-qu-zho-q1mx/
 var generateParenthesis = function (n) {
     //使用set便于去重
     let res = new Set(['()'])

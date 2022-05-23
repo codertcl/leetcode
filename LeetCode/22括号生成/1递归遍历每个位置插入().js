@@ -7,7 +7,8 @@ var generateParenthesis = function (n) {
     //递归获取n-1对应答案，遍历该答案中每个元素的每个位置添加()
     let s = generateParenthesis(n - 1)
     for (let i = 0; i < s.length; i++) {
-        for (let j = 0; j <= n; j++) {
+        // for (let j = 0; j <= n; j++) {
+        for (let j = 0; j < s[i].length; j++) {
             t = s[i];//获取当前结果
             res.add(t.slice(0, j) + '()' + t.slice(j))//添加()到该字符串的每一个位置
         }

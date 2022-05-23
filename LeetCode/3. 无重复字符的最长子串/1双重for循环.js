@@ -3,19 +3,24 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-    let max = 1, arr = s.split('');
-    for (let i = 0; i < arr.length - 1; i++) {
-        let str = '' + arr[i];
-        for (let j = i + 1; j < arr.length; j++) {
-            if (!str.includes(arr[j])) {
-                str += arr[j];
-                if (str.length > max) {
-                    max = str.length
-                }
-            } else {//出现了重复字符情况则该轮循环不必继续 否则不会连续
-                break;
+    let max = 0, str = '';
+    for (let i = 0; i < s.length; i++) {
+        let index = str.indexOf(s.charAt(i))
+        if (index !== -1) {
+            //更新当前字符串str
+            str = str.slice(index + 1) + s.charAt(i)
+        } else {
+            str += s.charAt(i)
+            if (max < str.length) {
+                max = str.length
             }
         }
     }
-    return s === '' ? 0 : max;
+    return max
 };
+
+console.log(lengthOfLongestSubstring('abcabcbb'))//3
+console.log(lengthOfLongestSubstring('bbbbb'))//1
+console.log(lengthOfLongestSubstring('pwwkew'))//3
+console.log(lengthOfLongestSubstring('pww'))//2
+console.log(lengthOfLongestSubstring('dvdf'))//3

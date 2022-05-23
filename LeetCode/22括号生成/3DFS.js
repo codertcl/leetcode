@@ -2,6 +2,7 @@
 var generateParenthesis = function (n) {
     const res = []
     const fun = (left, right, n, s) => {
+        debugger
         if (left === n && right === n) {
             res.push(s)
             return
@@ -15,6 +16,6 @@ var generateParenthesis = function (n) {
     return res
 }
 
-console.log(generateParenthesis(1))
-console.log(generateParenthesis(2))
+// console.log(generateParenthesis(1))
+// console.log(generateParenthesis(2))
 console.log(generateParenthesis(3))

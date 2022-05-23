@@ -1,6 +1,5 @@
 var twoSum = function (nums, target) {
     for (let i = 0; i < nums.length; i++) {
-        let tmp = target - nums[i];
         //为了避免[3,2,4] target为6，indexOf导致结果为[0,0] 或者[1,1] tar为2
         //最好使用lastIndexOf
         // let index = nums.indexOf(target - nums[i])
@@ -14,5 +13,14 @@ var twoSum = function (nums, target) {
         }
     }
 };
+
+// var twoSum = function (nums, target) {
+//     for (let i = 0; i < nums.length; i++) {
+//         let index = nums.indexOf(target - nums[i])
+//         if (index !== -1 && index !== i) {
+//             return [index, i]
+//         }
+//     }
+// };
 
 console.log(twoSum([3, 3], 6))
