@@ -1,9 +1,20 @@
 var hasPathSum = function (root, targetSum) {
     if (!root) return false
-    // 遍历到叶子节点
-    if (!root.left && !root.right) {
-        //targetSum等于节点值 返回ture 否则返回false
-        return targetSum === root.val
+    const queue = [root], res = [root.val]
+    while (queue.length) {
+        let p = queue.shift()
+        let q = res.shift()
+        if (!p.left && !p.right && targetSum === q) {
+            return true
+        }
+        if (p.left) {
+            queue.push(p.left)
+            res.push(q + p.left.val)
+        }
+        if (p.right) {
+            queue.push(p.right)
+            res.push(q + p.right.val)
+        }
     }
-    return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val)
+    return false
 };

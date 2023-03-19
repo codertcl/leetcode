@@ -1,15 +1,17 @@
 var isSymmetric = function (root) {
-    if (!root) return true
     const isMirror = (l, r) => {
-        if (!l && !r) return true; //两个空节点也为镜像
-        if (
-            l && r && l.val === r.val &&  //左节点和右节点相同，左子树和右子树也对称则返回true
-            isMirror(l.left, r.right) &&
-            isMirror(l.right, r.left)
-        ) {
-            return true;
+        const queue = [l, r];
+        while (queue.length) {
+            const p = queue.shift()
+            const q = queue.shift()
+            if (!p && !q) continue; //两个空节点也为镜像 但不能直接返回true,还要判断队列中其他元素
+            if ((!p || !q) || (p.val !== q.val)) {
+                return false;
+            }
+            queue.push(p.left, q.right);
+            queue.push(p.right, q.left);
         }
-        return false;
+        return true
     }
     return isMirror(root.left, root.right)
 };
