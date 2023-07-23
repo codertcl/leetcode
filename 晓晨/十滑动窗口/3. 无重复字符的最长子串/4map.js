@@ -1,6 +1,7 @@
 var lengthOfLongestSubstring = function (s) {
     let map = new Map(),
         max = 0
+    // 注意是j自增
     for (let i = 0, j = 0; j < s.length; j++) {
         if (map.has(s[j])) {
             // abba 此处应该取i和前面重复元素下标+1的较大值
@@ -15,7 +16,7 @@ var lengthOfLongestSubstring = function (s) {
     return max
 };
 
-console.log(lengthOfLongestSubstring('')) //0
+// console.log(lengthOfLongestSubstring('')) //0
 console.log(lengthOfLongestSubstring('abba')) //2
 console.log(lengthOfLongestSubstring('aabaab!bb')) //3
 console.log(lengthOfLongestSubstring('aab')) //2

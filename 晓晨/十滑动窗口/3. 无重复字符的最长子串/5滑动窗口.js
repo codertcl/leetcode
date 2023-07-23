@@ -6,7 +6,7 @@ var lengthOfLongestSubstring = function (s) {
         right++//窗口右移
         //计算右边界字符个数
         window[a] = (window[a] || 0) + 1
-        //当window[c]值大于 1 时，说明窗口中存在重复字符，
+        //当window[a]值大于 1 时，说明窗口中存在重复字符，
         // 不符合条件，就该移动left缩小窗口
         while (window[a] > 1) {
             let b = s[left]
