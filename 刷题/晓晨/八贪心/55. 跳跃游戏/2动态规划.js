@@ -3,7 +3,7 @@ var canJump = function (nums) {
     let dp = new Array(n).fill(false)
     dp[0] = true
     for (let i = 1; i < n; i++) {
-        //判断全面的每个元素 能否覆盖到i
+        //判断前面的每个元素跳最大步数侯 能否覆盖到i
         for (let j = 0; j < i; j++) {
             if (dp[j] && j + nums[j] >= i) {
                 dp[i] = true
