@@ -3,12 +3,12 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let res = 0, low = Number.MAX_SAFE_INTEGER;
-    for (let i = 0; i < prices.length; i++) {
-        low = Math.min(low, prices[i]);
-        res = Math.max(res, prices[i] - low)
+    let low = Number.MAX_SAFE_INTEGER, max = 0;
+    for (const price of prices) {
+        low = Math.min(low, price);
+        max = Math.max(max, price - low);
     }
-    return res;
+    return max;
 };
 console.log(maxProfit([7, 1, 5, 3, 6, 4])) //5
 console.log(maxProfit([7, 1, 6, 0, 6, 4])) //6
