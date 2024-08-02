@@ -1,4 +1,4 @@
-import { useEffect, useState } from "React";
+import {useEffect, useState} from "React";
 
 export function useLocalCacheState({
                                        key, initialValue, onChange
