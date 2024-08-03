@@ -9,5 +9,6 @@ var reverseList = function (head) {
         prev = cur
         cur = next
     }
+    // 此时cur已经为null
     return prev
 };

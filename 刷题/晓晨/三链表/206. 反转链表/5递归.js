@@ -9,6 +9,7 @@ var reverseList = function(head) {
     }
     // 这里是head.next
     let cur = reverseList(head.next);
+    // 经过上面的递归后，head.next为反转部分的尾节点，
     head.next.next = head;
     // 当链表递归反转之后，新的头节点是last，而之前的head变成了最后一个节点，别忘了链表的末尾要指向 null
     head.next = null;
