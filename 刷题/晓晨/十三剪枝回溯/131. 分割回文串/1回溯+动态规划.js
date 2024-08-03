@@ -29,10 +29,6 @@ var partition = function (s) {
     dfs(0);
     return ret;
 };
-//[["a","a","b"],["aa","b"]]
-debugger
-console.log(partition('aab'))
-//[['a']]
-console.log(partition('a'))
-//[["a","b","b","a","b"],["a","b","bab"],["a","bb","a","b"],["abba","b"]]
-console.log(partition("abbab"))
+console.log(partition('aab'))//[["a","a","b"],["aa","b"]]
+console.log(partition('a')) // [['a']]
+console.log(partition("abbab"))//[["a","b","b","a","b"],["a","b","bab"],["a","bb","a","b"],["abba","b"]]

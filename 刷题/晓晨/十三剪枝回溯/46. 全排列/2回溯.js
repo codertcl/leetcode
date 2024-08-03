@@ -9,7 +9,6 @@ var permute = function(nums) {
     return res;
 
     function backtracking(n, k, used) {
-        debugger
         if(path.length === k) {
             res.push(Array.from(path));
             return;
