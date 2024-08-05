@@ -15,16 +15,16 @@
 //
 // 空间复杂度：O(m)O(m)，其中 mm 是链表 headA 的长度。需要使用哈希集合存储链表headA 中的全部节点。
 var getIntersectionNode = function (headA, headB) {
-    let p = new ListNode(0), q = new ListNode(0), map = new Map()
-    p.next = headA;
-    q.next = headB
-    while (p) {
-        map.set(p, p)
-        p = p.next
+    const set = new Set();
+    let cur = headA;
+    while (cur) {
+        set.add(cur)
+        cur = cur.next
     }
-    while (q) {
-        if (map.has(q)) return q
-        q = q.next
+    cur = headB;
+    while (cur) {
+        if (set.has(cur)) return cur;
+        cur = cur.next;
     }
-    return null
+    return null;
 };
