@@ -2,12 +2,12 @@
 Function.prototype.myCall = function (context, ...args) {
     // context为要指向的对象
     // 首先检查函数调用的上下文，如果context为null或undefined，将其替换为全局对象，为基本数据类型时，则将其包装为对象类型
-    context = context ? Object(context) : globalThis;
+    context = context ? Object(context) : this;
 
-    // 生成一个唯一的属性名，避免与目标对象上可能存在的属性冲突
+    // // 生成一个唯一的属性名，避免与目标对象上可能存在的属性冲突
     const uniquePropertyName = Symbol();
 
-    // 将当前函数作为目标对象的一个临时属性
+    // // 将当前函数作为目标对象的一个临时属性
     context[uniquePropertyName] = this;
 
     // 使用目标对象调用这个临时属性，传入参数
