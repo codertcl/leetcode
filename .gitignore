@@ -1,3 +1,5 @@
 LeetCode/.idea
 *.xml
-/vue3/
+/inter/2周刷完100道前端面试题/code
+/vue3/node_modules
+/react-demo

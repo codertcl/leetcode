@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worker Example</title>
+</head>
+<body>
+<h1>Web Worker Counter</h1>
+<button id="startButton">Start Counting</button>
+<button id="stopButton">Stop Counting</button>
+<p>Count: <span id="countDisplay">0</span></p>
+
+<script>
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const countDisplay = document.getElementById('countDisplay');
+
+    let worker;
+
+    startButton.addEventListener('click', () => {
+        if (!worker) {
+            // worker = new Worker('counter-worker.js');
+            // worker线程中使用ESModule导出导入时
+            worker = new Worker('counter-worker.js', {
+                type: "module"
+            });
+            worker.onmessage = function(event) {
+                countDisplay.textContent = event.data;
+            };
+            worker.postMessage({ action: 'start' });
+        }
+    });
+
+    stopButton.addEventListener('click', () => {
+        if (worker) {
+            worker.postMessage({ action: 'stop' });
+            worker.terminate();
+            worker = null;
+        }
+    });
+</script>
+</body>
+</html>
