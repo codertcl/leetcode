@@ -4,20 +4,20 @@
  * @return {number[][]}
  */
 var permute = function(nums) {
-    const res = [], path = [];
-    backtracking(nums, nums.length, []);
+    const res = [], path = [], used = [];
+    backtracking();
     return res;
 
-    function backtracking(n, k, used) {
-        if(path.length === k) {
+    function backtracking() {
+        if(path.length === nums.length) {
             res.push(Array.from(path));
             return;
         }
-        for (let i = 0; i < k; i++ ) {
+        for (let i = 0; i < nums.length; i++ ) {
             if(used[i]) continue;
-            path.push(n[i]);
+            path.push(nums[i]);
             used[i] = true; // 同支
-            backtracking(n, k, used);
+            backtracking();
             path.pop();
             used[i] = false;
         }
