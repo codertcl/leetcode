@@ -7,11 +7,7 @@ const compose = (...fns) => {
         return fns[0];
     }
 
-    return fns.reduce((prev, cur) => {
-        return (...args) => {
-            return prev(cur(...args));
-        }
-    })
+    return fns.reduce((prev, cur) => (...args) => prev(cur(...args)))
 }
 // 示例用法
 const add5 = (x) => x + 5;

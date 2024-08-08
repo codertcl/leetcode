@@ -6,8 +6,8 @@ function curry(fn, currArgs) {
 
         // 首次调用时，若未提供最后一个参数currArgs，则不用进行args的拼接
         if (currArgs !== undefined) {
-            // currags为之前已经获取到的参数的数组 args为当前又重新调用的函数的参数 所以 currags应该在前
-            args = currArgs.concat(args);
+            // currArgs为之前已经获取到的参数的数组 args为当前又重新调用的函数的参数 所以 currArgs应该在前
+            args = [...currArgs, ...args];
         }
 
         // 递归调用

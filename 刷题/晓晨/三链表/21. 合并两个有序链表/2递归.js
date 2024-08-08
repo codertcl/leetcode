@@ -13,7 +13,7 @@
 var mergeTwoLists = function(l1, l2) {
     //递归的结束条件，如果l1和l2中有一个为空就返回
     if (l1 == null || l2 == null) {
-        return l1 == null ? l2 : l1;
+        return l1 || l2;
     }
     //如果l1的值<=l2的值，就继续递归，比较l1.next的值和l2的值
     if (l1.val <= l2.val) {
