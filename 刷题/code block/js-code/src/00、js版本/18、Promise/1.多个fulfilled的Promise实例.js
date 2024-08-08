@@ -1,4 +1,5 @@
-// 如果有多个fulfilled promise实例，同时执行then链式调用：then会交替执行。这是编译器的优化，防止一个promise占据太久时间。
+// 如果有多个fulfilled promise实例，同时执行then链式调用：
+// then会交替执行。这是编译器的优化，防止一个promise占据太久时间。
 Promise.resolve().then(() => {
     console.log(0)
 }).then(() => {
