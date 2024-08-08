@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const p = document.createElement("p");
+    p.innerText = "文本";
+    document.body.append(p)
+
+    // 宏任务：DOM 渲染后再触发，浏览器规定的
+    setTimeout(() => {
+        console.log("宏任务", document.querySelectorAll("p").length)
+        alert(`setTimeout, ${document.querySelectorAll("p").length}`)
+    }, 0);
+
+    // 微任务：DOM 渲染前会触发，ES6语法规定
+    Promise.resolve().then(() => {
+        console.log("微任务", document.querySelectorAll("p").length)
+        // 通过alert阻塞DOM渲染，发现DOM还没渲染
+        alert(`promise.then, ${document.querySelectorAll("p").length}`)
+    })
+</script>
+</body>
+</html>
