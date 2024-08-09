@@ -7,29 +7,38 @@ class MyPromise {
     resolvedCallBacks = []; // pending状态下存储成功的回调函数
     rejectedCallBacks = []; // pending状态下存储失败的回调函数
     constructor(fn) {
-        const resolveHandler = (value) => {
-            if (this.state === "pending") {
-                this.state = "fulfilled";
-                this.value = value;
-                this.resolvedCallBacks.forEach((callback) => {
-                    callback && callback(this.value)
-                })
-            }
+        const resolvedHandlers = (value) => {
+            // 加 setTimeout ，参考 https://coding.imooc.com/learn/questiondetail/257287.html (2022.01.21)
+            // 因为 Promise 是一个底层实现的微任务，而我们没法通过其他的 API 去实现 Promise 微任务，只能通过 setTimeout 来模拟一个异步
+            setTimeout(() => {
+                if (this.state === "pending") {
+                    this.state = "fulfilled";
+                    this.value = value;
+                    this.resolvedCallBacks.forEach(callback => {
+                        callback && callback(value)
+                    })
+                }
+            })
         }
-        const rejectHandler = (reason) => {
-            if (this.state === "pending") {
-                this.state = "rejected";
-                this.reason = reason;
-                this.rejectedCallBacks.forEach((callback) => {
-                    callback && callback(this.reason)
-                })
-            }
+
+        const rejectedHandlers = (reason) => {
+            // 加 setTimeout ，参考 https://coding.imooc.com/learn/questiondetail/257287.html (2022.01.21)
+            // 因为 Promise 是一个底层实现的微任务，而我们没法通过其他的 API 去实现 Promise 微任务，只能通过 setTimeout 来模拟一个异步
+            setTimeout(() => {
+                if (this.state === "pending") {
+                    this.state = "rejected";
+                    this.reason = reason;
+                    this.rejectedCallBacks.forEach(callback => {
+                        callback && callback(reason)
+                    })
+                }
+            })
         }
 
         try {
-            fn(resolveHandler, rejectHandler)
-        } catch (err) {
-            rejectHandler(err)
+            fn(resolvedHandlers, rejectedHandlers);
+        } catch (e) {
+            rejectedHandlers(e);
         }
     }
 
@@ -39,41 +48,36 @@ class MyPromise {
         fn1 = typeof fn1 === "function" ? fn1 : (value => value);
         fn2 = typeof fn2 === "function" ? fn2 : (reason => reason);
         // pending状态下，两个回调函数会被分别存储到resolvedCallBacks和rejectedCallBacks中
-        if (this.state === "pending") {
-            return new MyPromise((resolve, reject) => {
-                this.resolvedCallBacks.push(
-                    () => {
-                        try {
-                            resolve(fn1(this.value));
-                        } catch (e) {
-                            reject(e)
-                        }
-                    })
-                this.rejectedCallBacks.push(() => {
+        return new MyPromise((resolve, reject) => {
+            if (this.state === "pending") {
+                this.resolvedCallBacks.push(() => {
                     try {
-                        resolve(fn2(this.reason));
+                        resolve(fn1(this.value));
                     } catch (e) {
                         reject(e)
                     }
                 })
-            })
-        } else if (this.state === "fulfilled") {
-            return new MyPromise((resolve, reject) => {
+                this.rejectedCallBacks.push(() => {
+                    try {
+                        reject(fn2(this.reason));
+                    } catch (e) {
+                        reject(e)
+                    }
+                })
+            } else if (this.state === "fulfilled") {
                 try {
                     resolve(fn1(this.value))
                 } catch (e) {
                     reject(e)
                 }
-            });
-        } else if (this.state === "rejected") {
-            return new MyPromise((resolve, reject) => {
+            } else {
                 try {
                     reject(fn2(this.reason))
                 } catch (e) {
                     reject(e)
                 }
-            });
-        }
+            }
+        })
     }
 
     catch(fn) {
@@ -113,10 +117,14 @@ MyPromise.all = (promisesList) => {
 }
 
 MyPromise.race = (promisesList) => {
+    let resolved = false // 标记
     return new MyPromise((resolve, reject) => {
         promisesList.forEach(p => {
             p.then(res => {
-                resolve(res)
+                if (!resolved) {
+                    resolve(res)
+                    resolved = true
+                }
             }, err => {
                 reject(err)
             })
@@ -153,13 +161,16 @@ MyPromise.allSettled = (promisesList) => {
 }
 
 MyPromise.any = (promisesList) => {
+    let flag = false // 标记
     return new MyPromise((resolve, reject) => {
         const rejectRes = [];// 存储reject Promise的结果
         let count = 0; // rejected状态变更的数量
         promisesList.forEach(p => {
-            p.then(data => {
-                // 一个resolve就resolved
-                resolve(res)
+            p.then(res => {
+                if (!flag) {
+                    // 一个resolve就resolved
+                    resolve(res)
+                }
             }, err => {
                 // 全部reject才rejected
                 rejectRes.push(err);

@@ -33,22 +33,22 @@
     const p4 = MyPromise.resolve(400)
     const p5 = MyPromise.reject("error")
 
-    console.log("p4", p4)
-    console.log("p5", p5)
+    console.log("p4", p4, p4.value) // 400
+    console.log("p5", p5, p5.reason) // error
 
     const p6 = MyPromise.all([p4, p2])
     p6.then((data) => {
-        console.log("p6 data", data) // [1, 102]
+        console.log("p6 data", data) // [400, 200]
     }).catch((error) => {
         console.log("p6 error", error)
     })
-    console.log("p6 all", p6) // [1, 102]
+    console.log("p6 all", p6)
 
 
     const p7 = MyPromise.race([p4, p1])
 
     p7.then((data) => {
-        console.log("p7 race data", data) // 1
+        console.log("p7 race data", data) // 400
     }).catch((error) => {
         console.log("p7 race error", error)
     })
@@ -65,7 +65,7 @@
     const p9 = MyPromise.any([p1, p2, p3, p4, p5, p6])
 
     p9.then((data) => {
-        console.log("p9 any data", data) // [400, 'error', 200, [200, 400], 200, 100]
+        console.log("p9 any data", data) // 400
     }).catch((error) => {
         console.log("p9 any error", error)
     })
