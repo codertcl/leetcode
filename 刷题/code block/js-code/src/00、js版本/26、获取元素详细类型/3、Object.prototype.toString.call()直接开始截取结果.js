@@ -1,8 +1,5 @@
 function getType(item) {
-    /*2、Object.prototype.toString.call()*/
-    const originalType = Object.prototype.toString.call(item); // "[object type]"
-    const spaceIndex = originalType.indexOf(" "); // 2
-    return originalType.slice(spaceIndex + 1, -1);
+    return Object.prototype.toString.call(item).slice(8, -1);
 }
 
 console.log(getType(true))  // "boolean"
@@ -25,5 +22,6 @@ console.log(getType(new RegExp(/^/))) // "regExp"
 console.log(getType(new Date())) // "date"
 console.log(getType(Symbol()))  // "symbol"
 console.log(getType(BigInt(11))) // "bigInt"
-console.log(getType(function () {})) // "function"
+console.log(getType(function () {
+})) // "function"
 console.log(getType(Promise.resolve())) // "promise"
