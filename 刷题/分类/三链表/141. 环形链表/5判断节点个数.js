@@ -7,3 +7,10 @@ const hasCycle = function(head) {
     }
     return true;
 };
+
+
+try {
+    
+}catch (e) {
+    
+}

@@ -1,15 +1,15 @@
-var levelOrder = function (root) {
+var largestValues = function (root) {
+    if (!root) return [];
     const res = [], queue = [root];
-    if (!root) return res;
     while (queue.length) {
-        const count = queue.length, curLevel = [];
+        let count = queue.length, cur = [], node;
         for (let i = 0; i < count; i++) {
-            const node = queue.pop();
-            curLevel.push(node.val);
+            node = queue.shift();
+            cur.push(node.val);
             node.left && queue.push(node.left)
             node.right && queue.push(node.right)
         }
-        res.push(curLevel)
+        res.push(Math.max(...cur))
     }
     return res;
 };

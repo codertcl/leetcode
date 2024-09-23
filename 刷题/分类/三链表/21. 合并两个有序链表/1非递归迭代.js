@@ -12,18 +12,18 @@
  */
 var mergeTwoLists = function (list1, list2) {
     let head = new ListNode()
-    let prev = head
+    let cur = head
     while (list1 && list2) {
         if (list1.val > list2.val) {
-            prev.next = list2
+            cur.next = list2
             list2 = list2.next
         } else {
-            prev.next = list1
+            cur.next = list1
             list1 = list1.next
         }
-        prev = prev.next
+        cur = cur.next
     }
-    prev.next = list1 ? list1 : list2
+    cur.next = list1 ? list1 : list2
     //head为头结点 所以返回其next
     return head.next
 };
