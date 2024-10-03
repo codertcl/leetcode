@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .container {
+        .parent {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            /*必须设置高度，否则无法体现出垂直居中*/
             height: 100vh;
         }
 
-        .box {
+        .son {
             width: 200px; /* 定义盒子的宽度 */
             height: 100px; /* 定义盒子的高度 */
             background-color: #f00;
-            margin: auto;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="box"></div>
+<div class="parent">
+    <div class="son"></div>
 </div>
 </body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation with requestAnimationFrame</title>
+    <style>
+        #box {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    const box = document.getElementById('box');
+    let start = null;
+    const targetX = 1300;
+    // 这个时间参数表示从unload事件触发开始到当前requestAnimationFrame
+    // 回调函数即将被执行的时间（以毫秒为单位），它是一个高精度时间戳
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        console.log(timestamp, start, progress)
+        const x = (progress / 4000) * targetX;
+        box.style.left = x + 'px';
+        if (x < targetX) {
+            requestAnimationFrame(step);
+        }
+    }
+    requestAnimationFrame(step);
+</script>
+</body>
+</html>

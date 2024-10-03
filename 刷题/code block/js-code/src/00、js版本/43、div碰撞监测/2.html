@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device - width, initial - scale = 1.0">
+    <title>Offset Properties Example</title>
+    <style>
+        #outer {
+            /*position: relative;*/
+            left: 50px;
+            top: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+        }
+
+        #inner {
+            position: relative;
+            left: 30px;
+            top: 30px;
+            width: 100px;
+            height: 100px;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="outer"></div>
+<script>
+    var div = document.getElementById('outer');
+    div.onDrag = (e) => {
+        console.log('drag', e)
+    }
+    div.onDragStart = (e) => {
+        console.log('onDragStart', e)
+    }
+    div.onDragEnter = (e) => {
+        console.log('onDragEnter', e)
+    }
+    div.ondragleave = (e) => {
+        console.log('ondragleave', e)
+    }
+    div.onDragOver = (e) => {
+        console.log('onDragOver', e)
+    }
+    div.onDragEnd = (e) => {
+        console.log('onDragEnd', e)
+    }
+</script>
+</body>
+</html>

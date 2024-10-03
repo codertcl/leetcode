@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<script>
+    var listItems = document.querySelectorAll('li');
+    for (var i = 0; i < listItems.length; i++) {
+        (function (index) {
+            var clickCount = 0;
+            listItems[index].addEventListener('click', function () {
+                clickCount++;
+                console.log('第' + (index + 1) + '个元素被点击了' + clickCount + '次');
+            });
+        })(i);
+    }
+</script>
+</body>
+</html>

@@ -1,24 +1,14 @@
-function MyInstance(instance, origin) {
-    if (!instance || (typeof instance !== "object" && typeof instance !== "function")) {
-        return false;
+function f1() {
+    var a = 2
+
+    function f2() {
+        // var a = 1
+        console.log(a);//1
     }
-    let proto = instance.__proto__;
-    while (proto) {
-        if (proto === origin.prototype) {
-            return true
-        }
-        proto = proto.__proto__;
-    }
-    return false
+
+    return f2;
 }
 
-console.log(function () {} instanceof Object) // true
-console.log(function () {} instanceof Function) // true
-console.log(MyInstance(1, Number))// false
-console.log(MyInstance(function () {}, Function)) // true
-console.log(MyInstance(function () {}, Object)) // true
-console.log(MyInstance([], Array)) // true
-console.log(MyInstance({}, Object)) // true
-console.log(MyInstance([], Object))// true
-console.log(MyInstance(new Map(), Object))// true
-console.log(MyInstance(new Set(), Object))// true
+var a = 3
+var x = f1();
+x();

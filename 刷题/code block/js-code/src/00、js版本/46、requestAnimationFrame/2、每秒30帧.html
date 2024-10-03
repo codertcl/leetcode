@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation with requestAnimationFrame</title>
+    <style>
+        #box {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    const box = document.getElementById('box');
+    let lastFrameTime = 0;
+    const frameRate = 30;
+    // 根据帧率计算出每帧的持续时间，即每帧应该持续1000/30毫秒
+    const frameDuration = 1000 / frameRate;
+    let translateX = 0;
+
+    function animate(timestamp) {
+        if (lastFrameTime === 0) {
+            lastFrameTime = timestamp;
+        }
+        const elapsed = timestamp - lastFrameTime;
+        if (elapsed >= frameDuration && translateX < 1300) {
+            translateX += 10;
+            box.style.transform = `translateX(${translateX}px)`;
+            lastFrameTime = timestamp;
+        }
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+</script>
+</body>
+</html>

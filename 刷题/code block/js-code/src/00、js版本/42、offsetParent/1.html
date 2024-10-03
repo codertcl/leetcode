@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device - width, initial - scale = 1.0">
+    <title>Offset Properties Example</title>
+    <style>
+        #outer {
+            /*position: relative;*/
+            left: 50px;
+            top: 50px;
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+        }
+
+        #inner {
+            position: relative;
+            left: 30px;
+            top: 30px;
+            width: 100px;
+            height: 100px;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    Outer Div
+    <div id="inner">Inner Div</div>
+</div>
+<script>
+    window.onload = function () {
+        var innerDiv = document.getElementById('inner');
+        var outerDiv = document.getElementById('outer');
+
+        console.log('Inner Div offsetParent:', innerDiv.offsetParent === outerDiv);
+        console.log('Inner Div offsetLeft:', innerDiv.offsetLeft);
+        console.log('Inner Div offsetTop:', innerDiv.offsetTop);
+
+        console.log('Outer Div offsetParent:', outerDiv.offsetParent === document.body);
+        console.log('Outer Div offsetLeft:', outerDiv.offsetLeft);
+        console.log('Outer Div offsetTop:', outerDiv.offsetTop);
+    };
+</script>
+</body>
+</html>

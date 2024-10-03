@@ -4,18 +4,12 @@
     <meta charset="utf-8">
     <title></title>
     <style type="text/css">
-
-        /*便于父元素能上下移动*/
-        body, html {
-            height: 100%;
-        }
-
         /*让父盒子水平垂直居中*/
         .box1 {
             width: 400px;
             height: 400px;
             background-color: skyblue;
-            /*!*让子盒子水平垂直居中*!*/
+            /*!*让子盒子垂直居中*!*/
             display: table-cell;
             vertical-align: middle;
         }
@@ -26,7 +20,8 @@
             width: 100px;
             height: 100px;
             background-color: gray;
-            /*让子盒子水平垂直居中*/
+            /*让子盒子水平居中*/
+            /*margin: auto;*/
             margin: 0 auto;
         }
     </style>

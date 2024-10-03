@@ -83,6 +83,10 @@ class MyPromise {
     catch(fn) {
         return this.then(null, fn)
     }
+
+    finally(callback) {
+        return this.then(callback, callback)
+    }
 }
 
 MyPromise.resolve = (value) => {

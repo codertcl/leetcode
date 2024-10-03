@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device - width, initial - scale = 1.0">
+    <title>Offset Properties Example</title>
+    <style>
+        [class^="box"] {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+
+        .box1 {
+            background: #00bb00;
+            top: 150px;
+            left: 50px;
+        }
+
+        .box2 {
+            width: 200px;
+            background: #00d8ff;
+            top: 210px;
+            left: 120px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+</div>
+<script>
+    const container = document.querySelector(".container");
+    container.addEventListener("mousedown", (e) => {
+        const {target} = e;
+        // 记录鼠标距离当前拖动盒子左边和上边的距离，在拖动时二者数值保持不变
+        // e.clientX、e.clientY为鼠标距离窗口左侧和上侧的距离
+        // target.offsetLeft为、offsetTop盒子距离窗口左侧和上侧的距离
+        // 二者差值在通过拖动来改变盒子位置时不变
+        target._x = e.clientX - target.offsetLeft;
+        target._y = e.clientY - target.offsetTop;
+        if (target.className.split(" ").includes("box")) {
+            // 此处window全局监听鼠标移动事件，将盒子移动到鼠标所在的位置
+            window.addEventListener("mousemove", handleMouseMove, false)
+            //
+            container.addEventListener("mouseup", handleMouseUp, false)
+        }
+
+        function handleMouseUp(e) {
+            window.removeEventListener("mousemove", handleMouseMove, false)
+            container.removeEventListener("mouseup", handleMouseUp, false)
+        }
+
+        function handleMouseMove(e) {
+            // 鼠标距离窗口左侧的距离减去鼠标和盒子之间的距离得到盒子距离窗口左侧的距离，设置为盒子的定位值
+            target.style.left = (e.clientX - target._x) + "px"
+            target.style.top = (e.clientY - target._y) + "px"
+            const boxes = container.querySelectorAll(".box");
+            const box1Info = getBoxInfo(boxes[0]), box2Info = getBoxInfo(boxes[1]);
+            // console.log(box1Info, box2Info)
+            console.log(isCollision(box1Info, box2Info), isCollision2(box1Info, box2Info));
+        }
+    })
+
+    function isCollision(box1, box2) {
+        /*方式1：计算中心点距离和宽高的相对大小*/
+        // centerXDis为两个div中心之间的横向距离，计算方式为两个div的offsetLeft属性值的插值加上二者宽度一半的绝对值
+        // 碰撞时centerXDis小于等于二者宽度的一半，设想临界状态二者的碰撞条件
+        const centerXDis = Math.abs(box1.x - box2.x) + Math.abs(box2.w - box1.w) / 2,
+            centerYDis = Math.abs(box1.y - box2.y) + Math.abs(box2.h - box1.h) / 2;
+        return centerXDis <= (box2.w + box1.w) / 2 && centerYDis <= (box2.h + box1.h) / 2;
+    }
+
+    // 方式2：考虑box2在box1刚好在右边、上边、左边、下边的临界状态
+    function isCollision2(box1, box2) {
+        // 下面四个条件满足了任意一个，都不会碰撞
+        return !(box2.x > box1.x + box1.w || // box2在box1右边
+            box1.x > box2.x + box2.w ||// box2在box1左边
+            box2.y > box1.y + box1.h || // box2在box1下边
+            box1.y > box2.y + box2.h // box2在box1上边
+        )
+    }
+
+    function getBoxInfo(box) {
+        return {
+            x: box.offsetLeft,
+            y: box.offsetTop,
+            w: box.clientWidth,
+            h: box.clientHeight,
+        }
+    }
+</script>
+</body>
+</html>

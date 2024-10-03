@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow DOM Example</title>
+    <style>
+        .wx_name {
+            color:aqua;
+        }
+    </style>
+</head>
+<body>
+<div class="wx_name">我是真实dom</div>
+<div id="root"></div>
+<script>
+    // 绑定了ID选择器的元素可以直接通过ID名来获取到
+    const shadowRoot = root.attachShadow({mode: 'open'})
+    const template = `
+            <div class="wx_name">shadow dom - 前端南玖</div>
+        `
+    shadowRoot.innerHTML = template
+</script>
+</body>
+</html>

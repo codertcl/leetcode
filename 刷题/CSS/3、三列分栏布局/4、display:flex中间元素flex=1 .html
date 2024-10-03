@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page {
+            height: 200px;
+            /* 添加padding属性，父容器左右两边往里收200px的边距 */
+            padding: 0 200px;
+
+            div {
+                float: left;
+            }
+        }
+
+        .left, .right {
+            position: relative; /* 相对定位的参照物是该元素本身在正常文档流中的位置。 */
+            width: 200px;
+            height: 200px;
+            background-color: #6d9b2f;
+        }
+
+        .left {
+            margin-left: -200px; /* 基于元素当前在文档流中的实际位置来定位的 */
+            left: -100%; /* 向左移动父容器宽度的100% */
+        }
+
+        .right {
+            margin-left: -200px; /* 基于元素当前在文档流中的实际位置来定位的 */
+            right: -200px; /* 向右移动自身的宽度200px */
+        }
+
+        .content {
+            width: 100%;
+            height: 200px;
+            background-color: #d8a7a7;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="content">主体内容</div>
+    <div class="left">左侧广告位</div>
+    <div class="right">右侧广告位</div>
+</div>
+</body>
+</html>
